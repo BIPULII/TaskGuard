@@ -1,0 +1,12 @@
+# Prettier ignore files
+node_modules
+dist
+build
+.next
+coverage
+.git
+*.lock
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+.env*
