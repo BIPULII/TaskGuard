@@ -13,64 +13,99 @@ export default function TaskCard({ task, onDelete, isDeleting = false }: TaskCar
   const getPriorityColor = (priority: string) => {
     switch (priority) {
       case 'HIGH':
-        return 'bg-red-100 text-red-800';
+        return 'bg-red-500/20 text-red-300 border border-red-500/30';
       case 'MEDIUM':
-        return 'bg-yellow-100 text-yellow-800';
+        return 'bg-yellow-500/20 text-yellow-300 border border-yellow-500/30';
       case 'LOW':
-        return 'bg-green-100 text-green-800';
+        return 'bg-green-500/20 text-green-300 border border-green-500/30';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-slate-600/20 text-slate-300 border border-slate-600/30';
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'COMPLETED':
-        return 'bg-green-100 text-green-800';
+        return 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
       case 'IN_PROGRESS':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30';
       case 'TODO':
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-slate-600/20 text-slate-300 border border-slate-600/30';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-slate-600/20 text-slate-300 border border-slate-600/30';
+    }
+  };
+
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case 'COMPLETED':
+        return '';
+      case 'IN_PROGRESS':
+        return '';
+      case 'TODO':
+        return '';
+      default:
+        return '';
+    }
+  };
+
+  const getPriorityIcon = (priority: string) => {
+    switch (priority) {
+      case 'HIGH':
+        return 'H';
+      case 'MEDIUM':
+        return 'M';
+      case 'LOW':
+        return 'L';
+      default:
+        return '·';
     }
   };
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition">
+    <div className="group bg-gradient-to-br from-slate-800/50 to-slate-900/50 rounded-xl border border-slate-700/50 hover:border-slate-600 p-5 hover:shadow-2xl hover:shadow-cyan-500/10 transition duration-300 animate-fadeIn hover:-translate-y-1">
       <div className="flex justify-between items-start mb-3">
-        <h3 className="text-lg font-semibold text-gray-900 flex-1">{task.title}</h3>
-        <div className="flex space-x-2">
-          <span className={`text-xs px-2 py-1 rounded-full font-semibold ${getStatusColor(task.status)}`}>
-            {task.status}
+        <h3 className="text-lg font-semibold text-slate-100 flex-1 group-hover:text-white transition line-clamp-2">{task.title}</h3>
+        <div className="flex space-x-2 ml-3">
+          <span className={`text-xs px-3 py-1 rounded-full font-semibold flex items-center space-x-1 ${getStatusColor(task.status)}`}>
+            <span>{getStatusIcon(task.status)}</span>
+            <span>{task.status}</span>
           </span>
-          <span className={`text-xs px-2 py-1 rounded-full font-semibold ${getPriorityColor(task.priority)}`}>
-            {task.priority}
+          <span className={`text-xs px-3 py-1 rounded-full font-semibold flex items-center space-x-1 ${getPriorityColor(task.priority)}`}>
+            <span>{getPriorityIcon(task.priority)}</span>
+            <span>{task.priority}</span>
           </span>
         </div>
       </div>
 
       {task.description && (
-        <p className="text-gray-600 text-sm mb-3">{task.description}</p>
+        <p className="text-slate-400 text-sm mb-3 line-clamp-2 group-hover:text-slate-300 transition">{task.description}</p>
       )}
 
       {task.dueDate && (
-        <p className="text-gray-500 text-xs mb-3">
-          Due: {new Date(task.dueDate).toLocaleDateString()}
-        </p>
+        <div className="flex items-center text-slate-500 text-xs mb-4 space-x-2">
+          <span>Due:</span>
+          <span>
+            {new Date(task.dueDate).toLocaleDateString('en-US', {
+              month: 'short',
+              day: 'numeric',
+              year: 'numeric'
+            })}
+          </span>
+        </div>
       )}
 
-      <div className="flex space-x-2">
+      <div className="flex gap-2 pt-3 border-t border-slate-700/50">
         <Link
           href={`/tasks/${task.id}/edit`}
-          className="flex-1 px-3 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition text-center"
+          className="flex-1 px-4 py-2 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white text-sm font-medium rounded-lg transition duration-300 text-center shadow-lg shadow-cyan-500/10 hover:shadow-cyan-500/20"
         >
           Edit
         </Link>
         <button
           onClick={() => onDelete(task.id)}
           disabled={isDeleting}
-          className="flex-1 px-3 py-2 bg-red-600 text-white text-sm rounded-lg hover:bg-red-700 disabled:opacity-50 transition"
+          className="flex-1 px-4 py-2 bg-slate-700/50 hover:bg-red-600/80 text-slate-200 hover:text-white text-sm font-medium rounded-lg disabled:opacity-50 transition duration-300 border border-slate-600/50 hover:border-red-600/50"
         >
           {isDeleting ? 'Deleting...' : 'Delete'}
         </button>

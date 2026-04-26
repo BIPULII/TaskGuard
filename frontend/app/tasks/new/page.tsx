@@ -43,16 +43,21 @@ function CreateTaskPage() {
   return (
     <div>
       <Navbar />
-      <div className="min-h-screen bg-gray-50 py-8">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-8">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-lg shadow-md p-8">
-            <div className="flex justify-between items-center mb-6">
-              <h1 className="text-3xl font-bold text-gray-900">Create New Task</h1>
+          <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 rounded-2xl border border-slate-700/50 p-8 backdrop-blur-xl animate-fadeIn">
+            <div className="flex justify-between items-center mb-8">
+              <div>
+                <h1 className="text-4xl font-bold text-white mb-1">
+                  Create New Task
+                </h1>
+                <p className="text-slate-400">Add a new task to your list</p>
+              </div>
               <Link
                 href="/dashboard"
-                className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition"
+                className="px-4 py-2 bg-slate-700/50 border border-slate-600/50 text-slate-200 hover:text-white rounded-lg hover:bg-slate-600/50 transition duration-300"
               >
-                Cancel
+                ✕ Cancel
               </Link>
             </div>
 
