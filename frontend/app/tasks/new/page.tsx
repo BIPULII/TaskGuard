@@ -9,9 +9,11 @@ import ErrorMessage from '@/components/ErrorMessage';
 import { useAuthStore } from '@/lib/store';
 import apiClient from '@/lib/api';
 import { withProtectedRoute } from '@/lib/withProtectedRoute';
+import { useAuth } from '@/lib/useAuth';
 
 function CreateTaskPage() {
   const router = useRouter();
+  useAuth(); // Initialize auth and load token from localStorage
   const accessToken = useAuthStore((state) => state.accessToken);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);

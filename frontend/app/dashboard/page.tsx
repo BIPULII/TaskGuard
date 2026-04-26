@@ -11,9 +11,11 @@ import { useAuthStore } from '@/lib/store';
 import apiClient from '@/lib/api';
 import { Task, TaskStats } from '@/types';
 import { withProtectedRoute } from '@/lib/withProtectedRoute';
+import { useAuth } from '@/lib/useAuth';
 
 function DashboardPage() {
   const router = useRouter();
+  useAuth(); // Initialize auth and load token from localStorage
   const accessToken = useAuthStore((state) => state.accessToken);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [stats, setStats] = useState<TaskStats | null>(null);

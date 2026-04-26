@@ -42,6 +42,38 @@ export const taskController = {
     }
   },
 
+  async getTask(req: AuthenticatedRequest, res: Response): Promise<void> {
+    try {
+      if (!req.userId) {
+        res.status(401).json({ error: "Unauthorized" });
+        return;
+      }
+
+      const { id } = req.params;
+      const task = await taskService.getTaskById(id, req.userId);
+
+      res.json(task);
+    } catch (error: any) {
+      if (error.message?.includes("Unauthorized")) {
+        res.status(403).json({
+          error: error.message,
+        });
+        return;
+      }
+
+      if (error.message?.includes("not found")) {
+        res.status(404).json({
+          error: error.message,
+        });
+        return;
+      }
+
+      res.status(500).json({
+        error: error.message || "Failed to fetch task",
+      });
+    }
+  },
+
   async createTask(req: AuthenticatedRequest, res: Response): Promise<void> {
     try {
       if (!req.userId) {

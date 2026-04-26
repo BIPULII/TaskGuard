@@ -11,11 +11,13 @@ import { useAuthStore } from '@/lib/store';
 import apiClient from '@/lib/api';
 import { Task } from '@/types';
 import { withProtectedRoute } from '@/lib/withProtectedRoute';
+import { useAuth } from '@/lib/useAuth';
 
 function EditTaskPage() {
   const router = useRouter();
   const params = useParams();
   const taskId = params.id as string;
+  useAuth(); // Initialize auth and load token from localStorage
   const accessToken = useAuthStore((state) => state.accessToken);
   const [task, setTask] = useState<Task | null>(null);
   const [isLoading, setIsLoading] = useState(true);
