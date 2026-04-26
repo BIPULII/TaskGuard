@@ -1,6 +1,6 @@
 # TaskGuard: A Secure Task Management System
 
-A production-grade task management system built with Next.js, Express.js, TypeScript, Prisma, and PostgreSQL. Features secure user authentication, protected task operations, and a responsive user interface.
+A production-grade task management system built with Next.js, Express.js, TypeScript, Prisma, and MySQL. Features secure user authentication, protected task operations, and a responsive user interface.
 
 ## Features
 
@@ -33,7 +33,7 @@ A production-grade task management system built with Next.js, Express.js, TypeSc
 - **Express.js** - Node.js web framework
 - **TypeScript** - Type-safe JavaScript
 - **Prisma** - Type-safe ORM
-- **PostgreSQL** - Relational database
+- **MySQL** - Relational database
 - **bcryptjs** - Password hashing
 - **jsonwebtoken** - JWT authentication
 - **Zod** - Schema validation
@@ -111,7 +111,7 @@ Create `.env` files in backend and frontend directories based on `.env.example`:
 ### Backend `.env`
 
 ```env
-DATABASE_URL="postgresql://user:password@localhost:5432/taskguard_db"
+DATABASE_URL="mysql://user:password@localhost:3306/taskguard_db"
 JWT_ACCESS_SECRET="your_secret_access_key"
 JWT_REFRESH_SECRET="your_secret_refresh_key"
 ACCESS_TOKEN_EXPIRES_IN="15m"
@@ -132,7 +132,7 @@ NEXT_PUBLIC_API_URL="http://localhost:5000"
 ### Prerequisites
 
 - Node.js 18+ and npm
-- PostgreSQL database (15+)
+- MySQL database (5.7+)
 - Git
 
 ### Backend Setup
@@ -417,10 +417,10 @@ NEXT_PUBLIC_API_URL=<backend_url>
 # Database URL points to Neon or Supabase
 ```
 
-### Database Deployment (Neon or Supabase)
+### Database Deployment (AWS RDS or PlanetScale)
 
 ```bash
-# Create PostgreSQL database on Neon/Supabase
+# Create MySQL database on AWS RDS or PlanetScale
 # Update DATABASE_URL in backend environment
 # Run prisma migrate in production
 npx prisma migrate deploy
@@ -471,8 +471,8 @@ npm run test
 
 ### Database Connection Error
 
-- Verify PostgreSQL is running
-- Check DATABASE_URL format
+- Verify MySQL is running
+- Check DATABASE_URL format (mysql://user:password@host:port/database)
 - Ensure database name is created
 
 ### JWT Token Issues
