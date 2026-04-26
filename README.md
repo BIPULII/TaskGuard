@@ -4,16 +4,16 @@ A production-grade task management system built with Next.js, Express.js, TypeSc
 
 ## Features
 
-- ✅ **User Authentication** - Secure registration and login with JWT
-- ✅ **Password Hashing** - bcrypt for secure password storage
-- ✅ **Protected Routes** - Route protection with JWT middleware
-- ✅ **Task Management** - Create, read, update, delete tasks
-- ✅ **User-Based Authorization** - Users only see their own tasks
-- ✅ **Task Filtering** - Filter by status, priority, and due date
-- ✅ **Dashboard Summary** - Overview of task statistics
-- ✅ **Responsive UI** - Mobile-friendly design with Tailwind CSS
-- ✅ **Security** - Rate limiting, Helmet headers, CORS, input validation
-- ✅ **Error Handling** - Comprehensive error messages and loading states
+-  **User Authentication** - Secure registration and login with JWT
+-  **Password Hashing** - bcrypt for secure password storage
+-  **Protected Routes** - Route protection with JWT middleware
+-  **Task Management** - Create, read, update, delete tasks
+-  **User-Based Authorization** - Users only see their own tasks
+-  **Task Filtering** - Filter by status, priority, and due date
+-  **Dashboard Summary** - Overview of task statistics
+-  **Responsive UI** - Mobile-friendly design with Tailwind CSS
+-  **Security** - Rate limiting, Helmet headers, CORS, input validation
+-  **Error Handling** - Comprehensive error messages and loading states
 
 ## Tech Stack
 
@@ -424,4 +424,4 @@ For issues or questions, please create an issue on GitHub.
 
 ---
 
-**Built with ❤️ for the Internship Assessment**
+
