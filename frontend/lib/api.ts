@@ -10,13 +10,44 @@ const apiClient: AxiosInstance = axios.create({
   withCredentials: true,
 });
 
-// Request interceptor to add access token
+// Store CSRF token
+let csrfToken: string | null = null;
+
+// Function to fetch CSRF token
+export const fetchCsrfToken = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/api/auth/csrf-token`, {
+      withCredentials: true,
+    });
+    csrfToken = response.data.csrfToken;
+    return csrfToken;
+  } catch (error) {
+    console.error("Failed to fetch CSRF token:", error);
+    return null;
+  }
+};
+
+// Initialize CSRF token on module load
+fetchCsrfToken();
+
+// Request interceptor to add access token and CSRF token
 apiClient.interceptors.request.use(
-  (config) => {
+  async (config) => {
     const token = localStorage.getItem("accessToken");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+
+    // Add CSRF token to state-changing requests
+    if (["POST", "PUT", "DELETE", "PATCH"].includes(config.method?.toUpperCase() || "")) {
+      if (!csrfToken) {
+        csrfToken = await fetchCsrfToken();
+      }
+      if (csrfToken) {
+        config.headers["X-CSRF-Token"] = csrfToken;
+      }
+    }
+
     return config;
   },
   (error) => {

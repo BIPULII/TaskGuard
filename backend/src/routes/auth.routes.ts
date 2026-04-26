@@ -14,6 +14,7 @@ const authLimiter = rateLimit({
 });
 
 // Public routes
+router.get("/csrf-token", authController.getCsrfToken); // Get CSRF token (no rate limit needed)
 router.post("/register", authLimiter, authController.register);
 router.post("/login", authLimiter, authController.login);
 router.post("/logout", authController.logout);

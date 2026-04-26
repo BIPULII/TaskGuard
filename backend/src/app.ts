@@ -6,6 +6,7 @@ import { config } from "./config/env";
 import authRoutes from "./routes/auth.routes";
 import taskRoutes from "./routes/task.routes";
 import { errorMiddleware } from "./middleware/auth.middleware";
+import csrfProtection, { csrfTokenMiddleware, csrfErrorHandler } from "./middleware/csrf.middleware";
 
 const app: Express = express();
 
@@ -15,8 +16,8 @@ app.use(
   cors({
     origin: config.clientUrl,
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-CSRF-Token"],
   })
 );
 
@@ -24,6 +25,11 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+// CSRF protection middleware (must be after cookieParser)
+app.use(csrfProtection);
+app.use(csrfTokenMiddleware);
+app.use(csrfErrorHandler);
 
 // Routes
 app.use("/api/auth", authRoutes);

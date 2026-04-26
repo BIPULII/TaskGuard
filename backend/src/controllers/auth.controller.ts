@@ -116,6 +116,22 @@ export const authController = {
     }
   },
 
+  async getCsrfToken(req: AuthenticatedRequest, res: Response): Promise<void> {
+    try {
+      // CSRF token is already available in res.locals.csrfToken
+      // Set by csrfTokenMiddleware
+      const csrfToken = req.csrfToken();
+      
+      res.json({
+        csrfToken,
+      });
+    } catch (error: any) {
+      res.status(500).json({
+        error: error.message || "Failed to generate CSRF token",
+      });
+    }
+  },
+
   async getProfile(req: AuthenticatedRequest, res: Response): Promise<void> {
     try {
       if (!req.userId) {

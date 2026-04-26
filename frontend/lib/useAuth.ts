@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from './store';
-import apiClient from './api';
+import apiClient, { fetchCsrfToken } from './api';
 
 export const useAuth = () => {
   const router = useRouter();
@@ -14,6 +14,9 @@ export const useAuth = () => {
     if (token) {
       setAccessToken(token);
     }
+    
+    // Initialize CSRF token on first load
+    fetchCsrfToken();
   }, [setAccessToken]);
 
   const login = async (email: string, password: string) => {
