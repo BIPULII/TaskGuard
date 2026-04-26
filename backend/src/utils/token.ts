@@ -7,13 +7,15 @@ export interface TokenPayload {
 }
 
 export const generateAccessToken = (payload: TokenPayload): string => {
-  return jwt.sign(payload, config.jwtAccessSecret, {
+  // @ts-ignore - Type mismatch with newer @types/jsonwebtoken
+  return jwt.sign(payload, config.jwtAccessSecret as string, {
     expiresIn: config.accessTokenExpiresIn,
   });
 };
 
 export const generateRefreshToken = (payload: TokenPayload): string => {
-  return jwt.sign(payload, config.jwtRefreshSecret, {
+  // @ts-ignore - Type mismatch with newer @types/jsonwebtoken
+  return jwt.sign(payload, config.jwtRefreshSecret as string, {
     expiresIn: config.refreshTokenExpiresIn,
   });
 };
