@@ -36,19 +36,6 @@ export default function TaskCard({ task, onDelete, isDeleting = false }: TaskCar
     }
   };
 
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case 'COMPLETED':
-        return '';
-      case 'IN_PROGRESS':
-        return '';
-      case 'TODO':
-        return '';
-      default:
-        return '';
-    }
-  };
-
   const getPriorityIcon = (priority: string) => {
     switch (priority) {
       case 'HIGH':
@@ -67,9 +54,8 @@ export default function TaskCard({ task, onDelete, isDeleting = false }: TaskCar
       <div className="flex justify-between items-start mb-3">
         <h3 className="text-lg font-semibold text-slate-100 flex-1 group-hover:text-white transition line-clamp-2">{task.title}</h3>
         <div className="flex space-x-2 ml-3">
-          <span className={`text-xs px-3 py-1 rounded-full font-semibold flex items-center space-x-1 ${getStatusColor(task.status)}`}>
-            <span>{getStatusIcon(task.status)}</span>
-            <span>{task.status}</span>
+          <span className={`text-xs px-3 py-1 rounded-full font-semibold ${getStatusColor(task.status)}`}>
+            {task.status}
           </span>
           <span className={`text-xs px-3 py-1 rounded-full font-semibold flex items-center space-x-1 ${getPriorityColor(task.priority)}`}>
             <span>{getPriorityIcon(task.priority)}</span>
